@@ -1,21 +1,23 @@
 # Chatroom
 
-**TODO: Add description**
+A personal tutorial project on testing the functional programing feature of Elixir.
 
-## Installation
+# System Explained
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `chatroom` to your list of dependencies in `mix.exs`:
+Uses a multi-thread server system that broadcast a connected client's message to simulate a chatroom.
 
-```elixir
-def deps do
-  [
-    {:chatroom, "~> 0.1.0"}
-  ]
-end
-```
+# Pseudo Code Flow
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/chatroom>.
+Server.start_link
+Server.accept
+Client.join_chat
+Client.send_username
+Server.handle_client*
+Server.loop
+Client.send_message
+Server.broadcast
 
+# Unsolved Problem
+
+Currently unsolved issue in Server.handle_client/1, where recv/1 cannot return client sent message {:ok, data}, CaseClauseError.
+However, debug message indicates that recv/1 did capture data and returned {:ok, data}, still problem exists
