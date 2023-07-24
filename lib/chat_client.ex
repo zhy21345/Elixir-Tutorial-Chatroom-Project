@@ -32,17 +32,19 @@ defmodule ChatClient do
     IO.puts("Welcome to the chat room!")
     IO.puts("Please enter your username: ")
     username = IO.gets("") |> String.trim()
+    IO.puts("join_chatroom: username received as #{username} 1")
 
     # in the client handler, it will get the username and start a new loop with this username,
     # this specific part is causing an unsolved error
     send_message(socket, username)
+    IO.puts("join_chatroom: #{username} send to server 2")
 
     # also a loop handler, for safety purpose also use multithread here although technially
     # there's only one thread connecting to server
     spawn(fn ->
       loop(socket)
     end)
-
+    IO.puts("join_chatroom: on listen to server 3")
     # accept message besides message sent
     receive_message(socket)
   end
@@ -51,8 +53,10 @@ defmodule ChatClient do
   defp loop(socket) do
     # send whatever writen here to the server
     message = IO.gets("") |> String.trim()
+    IO.puts("loop: message received as #{message} 1")
 
     send_message(socket, message)
+    IO.puts("loop: message #{message} send to server 2")
 
     loop(socket)
   end
